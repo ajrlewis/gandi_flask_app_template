@@ -1,7 +1,17 @@
+from typing import Optional
+
 from loguru import logger
+from sqlalchemy.exc import IntegrityError
 
 from app import db
 from models.pet import Pet
+
+
+def get(pet_id: int) -> Optional[Pet]:
+    logger.debug(f"{pet_id = }")
+    pet = db.session.get(Pet, pet_id)
+    logger.debug(f"{pet = }")
+    return pet
 
 
 def get_all(filters: dict) -> list[Pet]:
@@ -11,9 +21,15 @@ def get_all(filters: dict) -> list[Pet]:
     return pets
 
 
-def add(data: dict) -> Pet:
+def add(data: dict) -> Optional[Pet]:
     logger.debug(f"{data = }")
     pet = Pet(**data)
-    db.session.add(pet)
-    db.session.commit()
-    return pet
+    try:
+        db.session.add(pet)
+        db.session.commit()
+    except IntegrityError as e:
+        logger.error(f"unable to add pet to database: {e = }")
+        db.session.rollback()
+    else:
+        logger.debug(f"{pet = }")
+        return pet

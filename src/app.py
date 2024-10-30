@@ -26,7 +26,6 @@ def create_app(Config) -> Flask:
     )
     app.config.from_object(Config)
     logger.debug(f"{app = }")
-    logger.debug(f"{app.config = }")
 
     db.init_app(app=app)
     migrate.init_app(app=app, db=db)  # after db is configured.

@@ -51,17 +51,16 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .overview {
   background-image: url("/static/img/background.jpeg");
-  min-height: 100%;
-
+  min-height: 66%;
 }
 
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
   .overview {
     background-attachment: scroll;
-  }
   }
 }
 
