@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+flask-smorest
+Flask-HTTPAuth
+Flask-Migrate
+
+python-dotenv
+
+loguru
